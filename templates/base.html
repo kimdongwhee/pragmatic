@@ -8,9 +8,11 @@
     <!--include활용하여 header 부분 추가-->
     {% include "header.html" %}
 
+    <hr><!--구분선-->
     <!--extends block 구문 : include 활용 부분은 지속해서 사용하돼, block 부분은 지속해서 다양하게 편집하여 활용 가능-->
     {% block content %}
     {% endblock %}
+    <hr><!--구분선-->
 
     <!--include활용하여 header 부분 추가-->
     {% include "footer.html" %}

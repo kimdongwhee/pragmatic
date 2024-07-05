@@ -130,6 +130,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+#static 파일 관리를 위한 세팅
+#os는 라이브러리, path는 경로 모듈, join 함수
+STATIC_ROOT = os.path.join(BASE_DIR,"staticfiles")
+#static 폴더생성 후 코드입력. static 안에 있는 css파일과 연결
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

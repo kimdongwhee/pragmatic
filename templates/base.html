@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="ko">
+
+<!--include활용하여 head 부분 추가-->
+{% include "head.html" %}
+
 <body>
-    <h1>Hello World</h1>
+    <!--include활용하여 header 부분 추가-->
+    {% include "header.html" %}
+
+    <!--extends block 구문 : include 활용 부분은 지속해서 사용하돼, block 부분은 지속해서 다양하게 편집하여 활용 가능-->
+    {% block content %}
+    {% endblock %}
+
+    <!--include활용하여 header 부분 추가-->
+    {% include "footer.html" %}
 </body>
 </html>

@@ -44,4 +44,3 @@ class AccountCreateView(CreateView):
     success_url = reverse_lazy("accountapp:hello_world")
     #해당 CBV를 통해 볼 페이지
     template_name = "accountapp/create.html"
-

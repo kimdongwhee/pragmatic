@@ -7,6 +7,22 @@
             <span style="margin: 0 1rem;">nav1</span>
             <span style="margin: 0 1rem;">nav2</span>
             <span style="margin: 0 1rem;">nav3</span>
-            <span style="margin: 0 1rem;">nav4</span>
+
+            <!--로그인 버튼 : 로그인 상태라면 로그아웃, 아니라면 로그인 버튼이 보여주도록 설정-->
+            <!-- └ a 태그에 app > urls.py app_name과 지정한 url 경로 입력-->
+            <!-- └ ?next={{ request.path }} : next 인자를 지정함으로써 Get방식으로 값을 넘겨줌과 동시에 현재 페이지에서 작업완료 후 원래 페이지로 이동돼도록 지정(자동 리다이렉트)-->
+            {% if not user.is_authenticated %}
+            <a href="{% url 'accountapp:login' %}?next={{ request.path }}">
+                <span>Login</span>
+            </a>
+            {% else %}
+            <!-- logout은 POST 방식처리 -->
+            <form method="post" action="{% url 'accountapp:logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer; background-color: red;">
+                    <span>LogOut</span>
+                </button>
+            </form>
+            {% endif %}
         </nav>
     </div>

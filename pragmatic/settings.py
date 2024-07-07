@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
 import environ
 import os
+from django.urls import reverse_lazy
 
 env = environ.Env(
     # set casting, default value
@@ -137,6 +137,11 @@ STATIC_ROOT = os.path.join(BASE_DIR,"staticfiles")
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+#(1)로그인하면 리다이렉트할 기본 url
+LOGIN_REDIRECT_URL = reverse_lazy("accountapp:hello_world")
+#(2)로그아웃하면 리다이렉트할 기본 url : 로그아웃하면 로그인 페이지로 변경
+LOGOUT_REDIRECT_URL = reverse_lazy("accountapp:login")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

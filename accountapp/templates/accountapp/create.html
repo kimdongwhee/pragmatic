@@ -1,0 +1,17 @@
+<!--base. html 적용-->
+{% extends "base.html" %}
+
+<!--app 활용 템플릿 영역-->
+{% block content %}
+
+<div style="text-align:center">
+    <!--계정 생성 form에 대한 url을 POST방식으로 create url에 라우팅-->
+    <form action="{% url 'accountapp:create' %}" method="post">
+        <!--POST 방식 보안을 위해 csrf_token 지정-->
+        {% csrf_token %}
+        <!--views.py 에서 지정한 폼 활용-->
+        {{ form }}
+        <input type="submit" class="btn btn-primary">
+    </form>
+</div>
+{% endblock %}

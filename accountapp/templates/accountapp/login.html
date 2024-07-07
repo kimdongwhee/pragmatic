@@ -1,18 +1,22 @@
 <!--base. html 적용-->
 {% extends "base.html" %}
+<!--django-bootstrap4 적용 적용-->
+{% load bootstrap4 %}
 
 <!--app 활용 템플릿 영역-->
 {% block content %}
 
-<div style="text-align:center">
+<div style="text-align:center; max-width: 500px; margin: 4rem auto">
     <div>
         <h4>Login</h4>
     </div>
     <div>
         <form action="" method="POST">
             {% csrf_token %}
-            {{form}}
-            <input type="submit" class="btn btn-primary">
+            <!--django-bootstrap4 적용시 bootstrap_form form 사용. 기본 폼을 사용한다면 {{form}}-->
+            {% bootstrap_form form %}
+<!--            {{form}}-->
+            <input type="submit" class="btn btn-dark rounded-pill col-12 mt-4"><!--col은 너비로 0~12이며, 100%는 12 50%는 6임. mt : margin-top-->
         </form>
     </div>
 </div>

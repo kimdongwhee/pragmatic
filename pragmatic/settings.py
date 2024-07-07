@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #추가설치 라이브러리↓
+    "bootstrap4",
     #추가앱↓
     "accountapp"
 ]

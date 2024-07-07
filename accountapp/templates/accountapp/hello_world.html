@@ -17,11 +17,14 @@
                 <input type="submit" class="btn btn-primary" value="POST">
             </div>
         </form>
-        <!--hello_world_output이 있다면 반환-->
-        {% if hello_world_output %}
-        <h1>
-            {{ hello_world_output }}
-        </h1>
+        <!--hello_world_list 데이터가 있다면 반환-->
+        {% if hello_world_list %}
+            <!--hello_world_list 리스트 반환-->
+            {% for v in hello_world_list %}
+            <h1>
+                {{ v.text }}
+            </h1>
+            {% endfor %}
         {% endif %}
     </div>
 

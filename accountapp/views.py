@@ -1,19 +1,29 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
 from .models import HelloWorld
 
 def hello_world(request):
     if request.method == "POST":
         # POST 방식 데이터 DB 저장
         # (1)POST방식에서 hello_world_input 이라는 데이터를 temp로 가져옴
+        # └ 템플릿에서 받아올 인자를 get함
         temp = request.POST.get("hello_world_input")
         # (2) models.py 모델클래스 객체 생성
         new_hello_world = HelloWorld()
         # (3) HelloWorld의 text 필드에 temp 데이터 저장
+        # └ POST로 받은 데이터를 DB에 삽입
         new_hello_world.text = temp
         new_hello_world.save()
-        #POST 방식으로 요청시 accountapp/hello_world.html 페이지로 전환 및 데이터가 담긴 hello_world_output을 함께 반환
-        return render(request, "accountapp/hello_world.html", context={'hello_world_output':temp})
+
+        # 저장 데이터 모두 가져오기
+        # └ DB 즉, Model 클래스 객체의 모든 데이터 불러오기 객체명.objects.all()
+        hello_world_list = HelloWorld.objects.all()
+        # app > urls.py 에서 지정한 app_name과 reverse를 활용하여 위 코드가 실행시 해당 url로 리다이렉트
+        # └ accountapp의 hello_world url로 이동
+        return HttpResponseRedirect(reverse("accountapp:hello_world"))
     else:
-        #GET 방식으로 요청시 accountapp/hello_world.html 페이지로 전환 및 post method가 담긴 text를 context라는 꾸러미에 담아 함께 반환
-        return render(request, "accountapp/hello_world.html", context={'text': 'GET METHOD!'})
+        hello_world_list = HelloWorld.objects.all()
+        #GET 방식으로 요청시 accountapp/hello_world.html 페이지로 전환 및 post method가 담긴 hello_world_list를 context라는 꾸러미에 담아 함께 반환
+        return render(request, "accountapp/hello_world.html", context={'hello_world_list' : hello_world_list})

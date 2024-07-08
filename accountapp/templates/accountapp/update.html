@@ -1,0 +1,22 @@
+<!--base. html 적용-->
+{% extends "base.html" %}
+<!--django-bootstrap4 적용 적용-->
+{% load bootstrap4 %}
+
+<!--app 활용 템플릿 영역-->
+{% block content %}
+<div style="text-align:center; max-width: 500px; margin: 4rem auto">
+    <div class="mb-4"> <!--mb : margin bottom-->
+        <h3>Change MyInfo</h3>
+    </div>
+    <!--수정 form에 대한 url을 POST방식으로 create url에 라우팅-->
+    <form action="{% url 'accountapp:update' pk=user.pk %}" method="post">
+        <!--POST 방식 보안을 위해 csrf_token 지정-->
+        {% csrf_token %}
+        <!--django-bootstrap4 적용시 bootstrap_form form 사용. 기본 폼을 사용한다면 {{form}}-->
+        {% bootstrap_form form %}
+        <!--{{form}}-->
+        <input type="submit" class="btn btn-dark rounded-pill col-12 mt-4"><!--col은 너비로 0~12이며, 100%는 12 50%는 6임. mt : margin-top-->
+    </form>
+</div>
+{% endblock %}

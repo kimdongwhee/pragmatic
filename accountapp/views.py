@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 
+from .forms import AccountUpdateForm
 from .models import HelloWorld
 
 def hello_world(request):
@@ -29,7 +30,7 @@ def hello_world(request):
         return render(request, "accountapp/hello_world.html", context={'hello_world_list' : hello_world_list})
 
 
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.models import User #장고 기본제공 User 테이블
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy #reverse 와 reverse_lazy 는 함수형과 클래스형 뷰의 불러오는 결과에 따라 다름
@@ -44,3 +45,32 @@ class AccountCreateView(CreateView):
     success_url = reverse_lazy("accountapp:hello_world")
     #해당 CBV를 통해 볼 페이지
     template_name = "accountapp/create.html"
+
+# (2)조회뷰
+class AccountDetailView(DetailView):
+    model = User
+    # 인스타그램과 같이 사용자별 조회를 위해 context_object_name 지정. 지정이 안돼어 있다면 다른 사용자를 조회해도 사용자 본인정보로 조회가 됌.
+    context_object_name = "target_user"
+    template_name = "accountapp/detail.html"
+
+# (3)수정뷰
+class AccountUpdateView(UpdateView):
+    #해당 CBV를 통해 활용할 모델객체 파라미터
+    model = User #User 로 모델 지정
+    #기존 django 제공 UserCreationForm을 리팩토리한 forms.py에서 정의한 AccountUpdatedForm 활용
+    form_class = AccountUpdateForm
+    #해당 CBV를 통해 반환활 페이지
+    success_url = reverse_lazy("accountapp:hello_world")
+    # 해당 CBV를 통해 볼 페이지
+    template_name = "accountapp/update.html"
+
+    def get_success_url(self):
+        return reverse("accountapp:detail", kwargs={'pk': self.object.pk})
+
+# (4)삭제뷰
+class AccountDeleteView(DeleteView):
+    # 해당 CBV를 통해 활용할 모델객체 파라미터
+    model = User  # User 로 모델 지정
+    #해당 CBV를 통해 반환활 페이지
+    success_url = reverse_lazy("accountapp:login")
+    template_name = "accountapp/delete.html"

@@ -1,0 +1,25 @@
+<!--base. html 적용-->
+{% extends "base.html" %}
+
+<!--app 활용 템플릿 영역-->
+{% block content %}
+<div>
+    <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
+        <p>
+            {{ target_user.date_joined }}
+        </p>
+        <h2>
+            {{ target_user.username }}
+        </h2>
+        <!--현재 로그인한 사람과 해당 조회페이지 정보의 사람과 같다면 수정버튼 표시-->
+        {% if target_user == user %}
+        <a href="{% url 'accountapp:update' pk=user.pk %}">
+            <p>Edit MyInfo</p>
+        </a>
+        <a href="{% url 'accountapp:delete' pk=user.pk %}">
+            <p>Delete MyInfo</p>
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

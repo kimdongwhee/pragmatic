@@ -10,7 +10,7 @@
         <h3>Change MyInfo</h3>
     </div>
     <!--수정 form에 대한 url을 POST방식으로 create url에 라우팅-->
-    <form action="{% url 'accountapp:update' pk=user.pk %}" method="post">
+    <form action="{% url 'accountapp:update' pk=target_user.pk %}" method="post">
         <!--POST 방식 보안을 위해 csrf_token 지정-->
         {% csrf_token %}
         <!--django-bootstrap4 적용시 bootstrap_form form 사용. 기본 폼을 사용한다면 {{form}}-->

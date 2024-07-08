@@ -59,6 +59,7 @@ class AccountUpdateView(UpdateView):
     model = User #User 로 모델 지정
     #기존 django 제공 UserCreationForm을 리팩토리한 forms.py에서 정의한 AccountUpdatedForm 활용
     form_class = AccountUpdateForm
+    context_object_name = "target_user"
     #해당 CBV를 통해 반환활 페이지
     success_url = reverse_lazy("accountapp:hello_world")
     # 해당 CBV를 통해 볼 페이지
@@ -71,6 +72,7 @@ class AccountUpdateView(UpdateView):
 class AccountDeleteView(DeleteView):
     # 해당 CBV를 통해 활용할 모델객체 파라미터
     model = User  # User 로 모델 지정
+    context_object_name = "target_user"
     #해당 CBV를 통해 반환활 페이지
     success_url = reverse_lazy("accountapp:login")
     template_name = "accountapp/delete.html"

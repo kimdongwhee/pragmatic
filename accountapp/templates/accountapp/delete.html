@@ -8,7 +8,7 @@
         <h3>Delete MyInfo</h3>
     </div>
     <!--계정 삭제 : 사용자 유저 pk에 대한 delete url에 라우팅-->
-    <form action="{% url 'accountapp:delete' pk=user.pk %}" method="post">
+    <form action="{% url 'accountapp:delete' pk=target_user.pk %}" method="post">
         <!--POST 방식 보안을 위해 csrf_token 지정-->
         {% csrf_token %}
         <!--{{form}}-->

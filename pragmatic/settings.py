@@ -132,13 +132,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-#static 파일 관리를 위한 세팅
+#static 즉, 정적파일 관리를 위한 세팅 ex) 폰트, css등
 #os는 라이브러리, path는 경로 모듈, join 함수
 STATIC_ROOT = os.path.join(BASE_DIR,"staticfiles")
 #static 폴더생성 후 코드입력. static 안에 있는 css파일과 연결
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+#미디어 관련 설정 : 이미지 저장 등
+#└파일을 올릴때 media라는 디렉토리가 자동으로 생김
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 #(1)로그인하면 리다이렉트할 기본 url
 LOGIN_REDIRECT_URL = reverse_lazy("accountapp:hello_world")

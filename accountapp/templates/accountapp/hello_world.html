@@ -7,7 +7,7 @@
             Hello World List! :-)
         </h1>
         <!--action에는 보낼 url, method는 POST방식으로-->
-        <form action="/account/hello_world/" method="POST">
+        <form action="{% url 'accountapp:hello_world' %}" method="POST">
             {% csrf_token %}
             <div>
                 <!--name은 보낼 데이터에 대한 구분자-->

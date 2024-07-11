@@ -1,17 +1,40 @@
-<!--base. html 적용-->
 {% extends "base.html" %}
 
-<!--app 활용 템플릿 영역-->
 {% block content %}
 <div>
     <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
         <p>
             {{ target_user.date_joined }}
         </p>
+        <!-- 타겟 유저의 프로필이 존재한다면 프로필 닉네임 보여주기 -->
+        {% if target_user.profile %}
+        <img src="{{ target_user.profile.image.url }}" alt="" style="height:15rem; width 15rem; border-radius: 10rem; margin-bottom: 2rem;">
         <h2>
-            {{ target_user.username }}
+            {{ target_user.profile.nickname }}
+            <!-- 타겟 유저와 방문자가 같다면 편집버튼 보여주기 -->
+                {% if target_user == user %}
+                <a href="{% url 'profile_app:update' pk=target_user.profile.pk %}">
+                    Edit
+                </a>
+                {% endif %}
         </h2>
-        <!--현재 로그인한 사람과 해당 조회페이지 정보의 사람과 같다면 수정버튼 표시-->
+        <h4 style="font-family: 'Ga Maamli', sans-serif;">
+            {{ target_user.profile.message}}
+        </h4>
+        <!-- 아니라면 프로필 생성 URL 보이도록 지정 -->
+        {% else %}
+            {% if target_user == user %}
+            <a href="{% url 'profile_app:create' %}">
+                <h2 style="font-family: 'Ga Maamli', sans-serif;">
+                    Create Profile
+                </h2>
+            </a>
+            {% else %}
+            <!--방문사용자가 닉네임이없다면 닉네임없음표시-->
+            <h2>닉네임 없음</h2>
+            {% endif %}
+        {% endif %}
+        <!-- 현재 로그인한 사람과 해당 조회 페이지 정보의 사람이 같다면 수정 버튼 표시 -->
         {% if target_user == user %}
         <a href="{% url 'accountapp:update' pk=user.pk %}">
             <p>Edit MyInfo</p>

@@ -1,0 +1,80 @@
+<!--base. html 적용-->
+{% extends "base.html" %}
+<!--js 기능을 위해 static 호출-->
+{% load static %}
+
+<!--app 활용 템플릿 영역-->
+{% block content %}
+
+<style>
+    .container {
+      margin-top: 100px; /* 헤더 높이만큼 마진을 추가하여 이미지가 겹치지 않도록 함 */
+    }
+
+    .container div {
+      width: 250px;
+      background-color: antiquewhite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 1rem;
+    }
+    .container img {
+        width: 100%;
+        border-radius: 1rem;
+    }
+<!--    .container .item1 { height: 200px; }-->
+<!--    .container .item4 { height: 800px; }-->
+<!--    .container .item6 { height: 600px; }-->
+<!--    .container .item11 { height: 400px; }-->
+</style>
+
+    <div class="container">
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <img src="https://picsum.photos/200/300" alt="">
+        </div>
+        <div>
+            <a href = "{% url 'article_app:create' %}" class="btn btn-dark rounded-pill col-3 mt-3 mb-3">
+                Create Article
+            </a>
+        </div>
+    </div>
+
+    <script src="{% static 'js/magicgrid.js' %}"></script>
+{% endblock %}

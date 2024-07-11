@@ -2,9 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView
 from django.views.generic.edit import DeleteView
-
 
 from .decorators import article_ownership_required
 from .models import Article
@@ -24,7 +23,7 @@ class ArticleCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse("article_app:detail", kwargs={"pk":self.object.pk})
+        return reverse("article_app:detail", kwargs={"pk": self.object.pk})
 
 class ArticleDetailView(DetailView):
     model = Article
@@ -40,7 +39,7 @@ class ArticleUpdateView(UpdateView):
     template_name = "articleapp/update.html"
 
     def get_success_url(self):
-        return reverse("article_app:detail", kwargs={"pk":self.object.pk})
+        return reverse("article_app:detail", kwargs={"pk": self.object.pk})
 
 @method_decorator(article_ownership_required, "get")
 @method_decorator(article_ownership_required, "post")
@@ -49,3 +48,9 @@ class ArticleDeleteView(DeleteView):
     context_object_name = "target_article"
     template_name = "articleapp/delete.html"
     success_url = reverse_lazy("article_app:list")
+
+class ArticleListView(ListView):
+    model = Article
+    context_object_name = "article_list"  # 수정: 템플릿에서 사용할 변수명을 지정
+    paginate_by = 3
+    template_name = "articleapp/list.html"

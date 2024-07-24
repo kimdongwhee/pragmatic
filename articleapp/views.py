@@ -3,8 +3,9 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, ListView
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, FormMixin
 
+from commentapp.forms import CommentCreationForm
 from .decorators import article_ownership_required
 from .models import Article
 from .forms import ArticleCreationForm
@@ -25,8 +26,16 @@ class ArticleCreateView(CreateView):
     def get_success_url(self):
         return reverse("article_app:detail", kwargs={"pk": self.object.pk})
 
-class ArticleDetailView(DetailView):
+#댓글 등록 기능 추가 전
+# class ArticleDetailView(DetailView):
+#     model = Article
+#     context_object_name = "target_article"
+#     template_name = "articleapp/detail.html"
+
+#댓글 등록 기능 추가 후 : FormMixin을 활용하여 다중 상속
+class ArticleDetailView(DetailView, FormMixin):
     model = Article
+    form_class  = CommentCreationForm
     context_object_name = "target_article"
     template_name = "articleapp/detail.html"
 
@@ -52,5 +61,5 @@ class ArticleDeleteView(DeleteView):
 class ArticleListView(ListView):
     model = Article
     context_object_name = "article_list"  # 수정: 템플릿에서 사용할 변수명을 지정
-    paginate_by = 3
+    paginate_by = 10
     template_name = "articleapp/list.html"

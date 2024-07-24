@@ -15,3 +15,17 @@
 .pragmatic_logo {
     font-family: 'Ga Maamli', sans-serif;
 }
+
+@media screen and (max-width:500px) {
+    html {
+        font-size: 13px;
+    }
+}
+
+.pragmatic_header_nav {
+    margin: 0 0.5rem;
+}
+
+.pragmatic_header_navbar{
+    margin: 1rem 0;
+}

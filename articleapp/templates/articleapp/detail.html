@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
+<div xmlns="http://www.w3.org/1999/html">
     <div style="text-align:center; max-width:700px; margin: 4rem auto;">
         <h1>
             {{ target_article.title }}
@@ -10,25 +10,25 @@
             {{ target_article.writer.profile.nickname }}
         </h5>
         <hr>
-        <img style="width:100%; border-radius: 2rem; margin: 2rem 0;" src = "{{ target_article.image.url }}" alt="">
+        <img style="width:100%; border-radius: 2rem; margin: 2rem 0;" src="{{ target_article.image.url }}" alt="">
+        <div class="text-left">
+            {{ target_article.content | safe }} <!-- safe 필터를 사용하여 HTML 태그가 그대로 렌더링되도록 함 -->
+        </div>
 
-        <p>
-            {{ target_article.content }}
-        </p>
-        <!--아티클 사용자와 요청자와 같으면 보여줘라-->
+        <!-- 아티클 작성자와 요청자가 같으면 수정 및 삭제 버튼을 표시 -->
         {% if target_article.writer == request.user %}
-        <a href="{% url 'article_app:update' pk=target_article.pk %}" class="btn btn-primary rounded-pill col-3">
+        <a href="{% url 'article_app:update' pk=target_article.pk %}" class="btn btn-primary rounded-pill col-3 mt-3">
             Update Article
         </a>
-        <a href = "{% url 'article_app:delete' pk=target_article.pk%}" class="btn btn-danger rounded-pill col-3">
+        <a href="{% url 'article_app:delete' pk=target_article.pk %}" class="btn btn-danger rounded-pill col-3 mt-3">
             Delete Article
         </a>
         {% endif %}
         <hr>
-        <!--include 구문을 활용해 댓글작성영역 -->
+        <!-- include 구문을 사용하여 댓글 작성 영역 포함 -->
         {% include "commentapp/create.html" with article=target_article %}
         <hr>
-        <!--댓글 영역-->
+        <!-- 댓글 영역 -->
         {% for comment in target_article.comment.all %}
             {% include 'commentapp/detail.html' with comment=comment %}
         {% endfor %}
